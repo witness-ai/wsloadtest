@@ -26,15 +26,44 @@ wsloadtest/
 ├── req.txt         # Default request payload
 ├── resp.txt        # Default response payload
 ├── run_test.sh     # Automated test script
+├── Makefile        # Build automation
 └── README.md
 ```
 
 ## Usage
 
-### Build the server
+### Build (Recommended)
+
+The easiest way to build both server and client:
 
 ```bash
+# Build both server and client
+make
+
+# Or explicitly
+make build
+
+# Build individual components
+make server
+make client
+
+# Clean built binaries
+make clean
+
+# See all available targets
+make help
+```
+
+### Build manually
+
+Alternatively, you can build each component manually:
+
+```bash
+# Build server
 go build -o server cmd/server/server.go
+
+# Build client
+go build -o client cmd/client/client.go
 ```
 
 ### Run the server
@@ -146,6 +175,9 @@ This returns a JSON object with the following metrics:
 The easiest way to run a complete load test is using the included script:
 
 ```bash
+# Quick test using make (builds automatically)
+make test
+
 # Run with default settings (100 connections, 10 msg/s per connection, 60 seconds)
 ./run_test.sh
 
