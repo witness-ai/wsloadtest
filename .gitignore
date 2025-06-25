@@ -1,0 +1,24 @@
+# Build artifacts
+server
+client
+
+# Go build cache
+*.o
+*.a
+*.so
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db 
