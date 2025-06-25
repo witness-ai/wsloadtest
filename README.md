@@ -27,6 +27,7 @@ wsloadtest/
 ├── resp.txt        # Default response payload
 ├── run_test.sh     # Automated test script
 ├── Makefile        # Build automation
+├── .gitignore      # Git ignore patterns
 └── README.md
 ```
 
