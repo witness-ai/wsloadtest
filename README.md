@@ -55,9 +55,6 @@ go build -o server cmd/server/server.go
 # Specify custom payload files
 ./server -req-file=custom-req.txt -resp-file=custom-resp.txt
 
-# Enable request validation (checks if client requests match expected request)
-./server -validate-request=true
-
 # Run with increased connection limit (default is 10000)
 ./server -max-conns=20000
 
@@ -79,14 +76,12 @@ The server supports several configuration options to optimize performance:
 | `-request` | "" | Custom request payload (overrides file) |
 | `-req-file` | req.txt | File containing request payload |
 | `-resp-file` | resp.txt | File containing response payload |
-| `-validate-request` | false | Validate that client requests match expected request |
 | `-max-conns` | 10000 | Maximum number of concurrent connections |
-| `-read-buffer` | 1024 | Read buffer size in bytes |
-| `-write-buffer` | 1024 | Write buffer size in bytes |
+| `-read-buffer` | 8192 | Read buffer size in bytes |
+| `-write-buffer` | 8192 | Write buffer size in bytes |
 | `-read-timeout` | 10s | Read timeout |
 | `-write-timeout` | 10s | Write timeout |
-| `-idle-timeout` | 60s | Idle timeout |
-| `-compression` | true | Enable WebSocket compression |
+| `-compression` | false | Enable WebSocket compression |
 | `-ping-pong` | false | Enable ping/pong to keep connections alive |
 | `-ping-interval` | 30s | Ping interval when ping-pong is enabled |
 
@@ -129,7 +124,7 @@ This returns a JSON object with the following metrics:
   "last_error": "",
   "max_connections": 10000,
   "ping_pong_enabled": false,
-  "validate_request": false,
+  "compression_enabled": false,
   "request_payload_size": 1234,
   "response_payload_size": 4321,
   "request_file": "req.txt",
@@ -142,13 +137,7 @@ This returns a JSON object with the following metrics:
 }
 ```
 
-When request validation is enabled, the status endpoint also includes:
-```json
-{
-  "requests_validated": 450,
-  "requests_invalid": 50
-}
-```
+
 
 ## Load Testing
 
@@ -212,11 +201,11 @@ The client supports several configuration options to optimize load testing:
 | `-duration` | 60 | Test duration in seconds |
 | `-batch` | 100 | Connection batch size |
 | `-batch-delay` | 1s | Delay between connection batches |
-| `-read-buffer` | 1024 | Read buffer size |
-| `-write-buffer` | 1024 | Write buffer size |
+| `-read-buffer` | 8192 | Read buffer size |
+| `-write-buffer` | 8192 | Write buffer size |
 | `-read-timeout` | 10s | Read timeout |
 | `-write-timeout` | 10s | Write timeout |
-| `-compression` | true | Enable WebSocket compression |
+| `-compression` | false | Enable WebSocket compression |
 | `-verbose` | false | Enable verbose message logging |
 
 ### Using other tools
@@ -232,7 +221,7 @@ hey -n 1000 -c 100 http://localhost:8080/status
 You can use any WebSocket client to connect to this server. For example, with JavaScript:
 
 ```javascript
-const ws = new WebSocket('ws://localhost:8080/ws');
+const ws = new WebSocket('ws://localhost:8080/');
 
 ws.onopen = () => {
   console.log('Connected to server');

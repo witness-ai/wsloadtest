@@ -1,4 +1,4 @@
-// Build with: go build -o wsclient cmd/client/client.go
+// Build with: go build -o client cmd/client/client.go
 package main
 
 import (

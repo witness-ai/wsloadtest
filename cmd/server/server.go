@@ -1,4 +1,4 @@
-// Build with: go build -o wsload cmd/server/server.go
+// Build with: go build -o server cmd/server/server.go
 package main
 
 import (
