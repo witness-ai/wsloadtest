@@ -105,7 +105,7 @@ ulimit -n 250000
 
 The WebSocket endpoint is available at:
 ```
-ws://[server-address]:8080/ws
+ws://[server-address]:8080/
 ```
 
 ### Monitor server metrics
