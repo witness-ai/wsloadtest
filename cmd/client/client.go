@@ -75,6 +75,7 @@ func runClient(id int) {
 		WriteBufferSize:   *writeBufferSize,
 		HandshakeTimeout:  10 * time.Second,
 		EnableCompression: *enableCompression,
+		Proxy:             http.ProxyFromEnvironment,
 	}
 
 	u := url.URL{Scheme: "ws", Host: *addr, Path: "/"}
